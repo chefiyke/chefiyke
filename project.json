@@ -1,0 +1,27 @@
+{
+  "overview": "Chefiyke is a premium personal brand platform and business engine for www.chefiyke.com. It combines a public-facing authority site with a secure Virtual Office for full backend control — including a pricing engine, contact manager, systems portfolio, affiliate system, client portal, and legal compliance pages.",
+  "features": [
+    "Global save/persistence across all editable modules",
+    "ON/OFF visibility toggles for systems, contacts, pricing, and payments",
+    "Secure payment configuration (Paystack, Flutterwave, bank, crypto) with private keys server-only",
+    "Full-CRUD Systems Manager with /systems public portfolio page",
+    "Contact Manager with 17 platforms and visibility control",
+    "Back button and Return to Homepage navigation in Virtual Office",
+    "Legal pages (Terms, Privacy, Disclaimer, Refund) editable from backend",
+    "Chefiyke-branded login and auth screens with no external platform references",
+    "Production security hardening — no secrets exposed, backend trust model enforced",
+    "Builder's Dashboard client portal for consulting clients"
+  ],
+  "category": "business",
+  "tags": [
+    "personal-brand",
+    "landing-page",
+    "admin-dashboard",
+    "virtual-office",
+    "affiliate",
+    "legal-pages",
+    "secure",
+    "chefiyke"
+  ],
+  "last_updated": "2026-05-01T00:15:30.951Z"
+}

@@ -1,0 +1,1076 @@
+type VersionInfo = 
+ record {
+   buildVersion: nat;
+   environment: text;
+   lastDeployedAt: int;
+   systemVersion: text;
+ };
+type UserRole = 
+ variant {
+   Admin;
+   Affiliate;
+   Customer;
+   PlatformOwner;
+   Staff;
+ };
+type UpdateProjectRequest = 
+ record {
+   completedDate: opt Timestamp;
+   expectedEndDate: opt Timestamp;
+   projectDescription: opt text;
+   projectTitle: opt text;
+   status: opt ClientProjectStatus;
+ };
+type TrainingModule = 
+ record {
+   createdAt: Timestamp;
+   description: text;
+   id: nat;
+   order: nat;
+   textContent: text;
+   title: text;
+   videoStorageId: opt text;
+ };
+type Timestamp = int;
+type Testimonial = 
+ record {
+   author: text;
+   isVisible: bool;
+   role: text;
+   "text": text;
+ };
+type SystemConfig = 
+ record {
+   brandTagline: text;
+   competenceSectionVisible: bool;
+   ctaExploreSystems: text;
+   ctaGetLandingPage: text;
+   ctaViewCompetence: text;
+   ctaWorkWithMe: text;
+   environment: text;
+   footerText: text;
+   heroHeadline: text;
+   heroSubtext: text;
+   maintenanceMode: bool;
+   siteDescription: text;
+   siteTitle: text;
+ };
+type SystemApp = 
+ record {
+   createdAt: int;
+   description: text;
+   id: text;
+   isVisible: bool;
+   name: text;
+   order: nat;
+   url: text;
+ };
+type SubmitResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type StaffUser = 
+ record {
+   email: text;
+   id: principal;
+   invitedAt: Timestamp;
+   lastLoginAt: opt Timestamp;
+   permissions: vec Permission;
+   role: UserRole;
+   status: variant {
+             active;
+             inactive;
+             pending;
+           };
+ };
+type SlideButton = 
+ record {
+   href: text;
+   "text": text;
+ };
+type SignatureEdge = 
+ record {
+   pillar1: text;
+   pillar2: text;
+   pillar3: text;
+   quote: text;
+ };
+type SecurityPolicy = 
+ record {
+   lockoutDurationMins: nat;
+   maxLoginAttempts: nat;
+   rateLimitPerMin: nat;
+   rateLimitPublicPerMin: nat;
+   sessionTimeoutMins: nat;
+ };
+type SalesStats = 
+ record {
+   pendingPayments: nat;
+   totalOrders: nat;
+   totalRevenue: float64;
+ };
+type SalesFilter = 
+ record {
+   assignedStaff: opt principal;
+   fromDate: opt Timestamp;
+   product: opt text;
+   status: opt OrderStatus;
+   toDate: opt Timestamp;
+ };
+type RoleResult = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type ProjectUpdate = 
+ record {
+   content: text;
+   createdAt: Timestamp;
+   id: text;
+   isPublished: bool;
+   title: text;
+ };
+type PricingData = 
+ record {
+   bundles: vec Bundle;
+   competencePricing: vec CompetencePricing;
+   consultancyServices: vec ConsultancyService;
+   giveaways: vec GiveawayItem;
+   landingPageOffers: vec LandingPageOffer;
+ };
+type Permission = 
+ variant {
+   CanEditContactDetails;
+   CanEditContent;
+   CanManageAffiliates;
+   CanManageBuyerLeads;
+   CanManageFinance;
+   CanManageLeads;
+   CanManageMedia;
+   CanManagePayments;
+   CanManageRoles;
+   CanManageSales;
+   CanManageSecurity;
+   CanManageStaff;
+   CanManageTraining;
+   CanViewAuditLog;
+   CanViewDashboard;
+   CanViewReports;
+ };
+type PaystackConfig = 
+ record {
+   publicKey: text;
+   secretKey: text;
+   webhookSecret: text;
+ };
+type PayoutStatus = 
+ variant {
+   completed;
+   pending;
+ };
+type PayoutRecord = 
+ record {
+   adjustedBy: opt principal;
+   adjustmentNote: text;
+   affiliateId: text;
+   amount: float64;
+   id: text;
+   method: text;
+   processedAt: opt Timestamp;
+   requestedAt: Timestamp;
+   status: PayoutStatus;
+ };
+type PaymentOrderStatus = 
+ variant {
+   Completed;
+   Failed;
+   Pending;
+   Rejected;
+ };
+type PaymentOrder = 
+ record {
+   amount: nat;
+   approvedBy: opt principal;
+   createdAt: Timestamp;
+   currency: text;
+   method: variant {
+             flutterwave;
+             localBank;
+             paystack;
+           };
+   notes: opt text;
+   orderId: nat;
+   payerEmail: text;
+   payerName: text;
+   payerPhone: opt text;
+   status: PaymentOrderStatus;
+   updatedAt: Timestamp;
+   webhookRef: opt text;
+ };
+type PaymentConfigPublic = 
+ record {
+   defaultCurrency: text;
+   enabledMethods: vec variant {
+                         flutterwave;
+                         localBank;
+                         paystack;
+                       };
+   flutterwavePublicKey: opt text;
+   localBank: opt LocalBankConfig;
+   paystackPublicKey: opt text;
+   servicePriceNgn: nat;
+ };
+type PaymentConfig = 
+ record {
+   defaultCurrency: text;
+   enabledMethods: vec variant {
+                         flutterwave;
+                         localBank;
+                         paystack;
+                       };
+   flutterwave: opt FlutterwaveConfig;
+   localBank: opt LocalBankConfig;
+   paystack: opt PaystackConfig;
+   servicePriceNgn: nat;
+   updatedAt: Timestamp;
+ };
+type OrderStatus = 
+ variant {
+   completed;
+   failed;
+   pending;
+   refunded;
+ };
+type Order = 
+ record {
+   amount: float64;
+   assignedStaff: opt principal;
+   createdAt: Timestamp;
+   customerEmail: text;
+   customerId: opt principal;
+   customerName: text;
+   id: text;
+   notes: text;
+   product: text;
+   status: OrderStatus;
+   updatedAt: Timestamp;
+ };
+type NextStep = 
+ record {
+   description: text;
+   id: text;
+   isCompleted: bool;
+   order: nat;
+ };
+type LocalBankConfig = 
+ record {
+   accountName: text;
+   accountNumber: text;
+   bankName: text;
+ };
+type LiveSession = 
+ record {
+   createdAt: Timestamp;
+   date: Timestamp;
+   description: text;
+   id: nat;
+   joinLink: text;
+   title: text;
+ };
+type LegalContent = 
+ record {
+   content: text;
+   id: text;
+   lastUpdated: int;
+   title: text;
+ };
+type LeadStatus = 
+ variant {
+   contacted;
+   converted;
+   new;
+   qualified;
+   rejected;
+ };
+type LeadStats = 
+ record {
+   newLeads: nat;
+   qualifiedLeads: nat;
+   totalLeads: nat;
+ };
+type LeadSource = 
+ variant {
+   affiliate_signup;
+   contact_form;
+   other;
+   training_enrollment;
+ };
+type LeadFilter = 
+ record {
+   assignedStaff: opt principal;
+   fromDate: opt Timestamp;
+   source: opt LeadSource;
+   status: opt LeadStatus;
+   toDate: opt Timestamp;
+ };
+type Lead = 
+ record {
+   affiliateRef: opt text;
+   assignedStaff: opt principal;
+   createdAt: Timestamp;
+   email: text;
+   id: text;
+   message: text;
+   name: text;
+   notes: text;
+   phone: opt text;
+   source: LeadSource;
+   status: LeadStatus;
+   updatedAt: Timestamp;
+ };
+type LandingPageOffer = 
+ record {
+   currency: text;
+   description: text;
+   id: text;
+   isVisible: bool;
+   price: nat;
+   tag: opt text;
+   tier: text;
+   title: text;
+ };
+type IpAddress = text;
+type HeroSlide = 
+ record {
+   body: text;
+   button1: SlideButton;
+   button2: SlideButton;
+   headline: text;
+   subheadline: text;
+ };
+type HeroImageIds = 
+ record {
+   aboutImageId: opt text;
+   presenceImageId: opt text;
+   slide1ImageId: opt text;
+   slide2ImageId: opt text;
+   slide3ImageId: opt text;
+ };
+type HelpBlock = 
+ record {
+   description: text;
+   title: text;
+ };
+type GiveawayItem = 
+ record {
+   currency: text;
+   description: text;
+   discountedPrice: opt nat;
+   id: text;
+   isActive: bool;
+   isFree: bool;
+   isVisible: bool;
+   order: nat;
+   title: text;
+ };
+type GalleryVideoInput = 
+ record {
+   description: text;
+   isFeatured: bool;
+   isVisible: bool;
+   title: text;
+   url: text;
+ };
+type GalleryVideo = 
+ record {
+   description: text;
+   id: nat;
+   isFeatured: bool;
+   isVisible: bool;
+   title: text;
+   uploadedAt: Timestamp;
+   url: text;
+ };
+type GalleryImage = 
+ record {
+   caption: text;
+   id: nat;
+   storageId: text;
+   uploadedAt: Timestamp;
+ };
+type FormSource = 
+ variant {
+   Footer;
+   Hero;
+   MidPage;
+ };
+type FlutterwaveConfig = 
+ record {
+   publicKey: text;
+   secretKey: text;
+   webhookSecret: text;
+ };
+type FinanceSummary = 
+ record {
+   entryCount: nat;
+   netBalance: int;
+   totalExpenses: nat;
+   totalIncome: nat;
+ };
+type FinanceEntry = 
+ record {
+   amount: nat;
+   createdAt: Timestamp;
+   date: text;
+   description: text;
+   entryType: EntryType;
+   id: nat;
+ };
+type EntryType = 
+ variant {
+   expense;
+   income;
+ };
+type DeploymentEntry = 
+ record {
+   deployedAt: int;
+   note: text;
+   version: nat;
+ };
+type Deliverable = 
+ record {
+   description: text;
+   fileType: opt text;
+   id: text;
+   isAvailable: bool;
+   title: text;
+   uploadedAt: Timestamp;
+   url: opt text;
+ };
+type CryptoPaymentPublic = 
+ record {
+   enabled: bool;
+   network: text;
+   paymentInstructions: text;
+   usdcEnabled: bool;
+   usdcWalletAddress: text;
+   usdtWalletAddress: text;
+ };
+type CryptoPaymentConfig = 
+ record {
+   eligibleOfferIds: vec text;
+   enabled: bool;
+   network: text;
+   paymentInstructions: text;
+   usdcEnabled: bool;
+   usdcWalletAddress: text;
+   usdtWalletAddress: text;
+ };
+type CreateProjectRequest = 
+ record {
+   clientEmail: text;
+   clientName: text;
+   clientPrincipal: principal;
+   expectedEndDate: opt Timestamp;
+   projectDescription: text;
+   projectTitle: text;
+   startDate: Timestamp;
+   tier: ConsultingTier;
+ };
+type ContactPlatform = 
+ record {
+   displayLabel: opt text;
+   id: text;
+   isVisible: bool;
+   order: nat;
+   platformKey: text;
+   platformName: text;
+   url: text;
+ };
+type ContactMessage = 
+ record {
+   id: nat;
+   messageText: text;
+   senderName: text;
+   timestamp: int;
+ };
+type ContactLinks = 
+ record {
+   email: text;
+   facebook: text;
+   instagram: text;
+   primaryCtaText: text;
+   whatsapp: text;
+ };
+type ContactLink = 
+ record {
+   name: text;
+   url: text;
+ };
+type ContactDetails = 
+ record {
+   email: opt text;
+   facebook: opt text;
+   instagram: opt text;
+   linkedin: opt text;
+   otherLinks: vec ContactLink;
+   phone: opt text;
+   snapchat: opt text;
+   tiktok: opt text;
+   updatedAt: Timestamp;
+   whatsapp: opt text;
+   x: opt text;
+ };
+type ConsultingTier = 
+ variant {
+   Advisory;
+   BakerySetup;
+   BakerySetupAndRecipes;
+   BusinessDevelopment;
+ };
+type ConsultancyService = 
+ record {
+   currency: text;
+   description: text;
+   id: text;
+   isVisible: bool;
+   order: nat;
+   price: nat;
+   title: text;
+ };
+type CompetencePricing = 
+ record {
+   currency: text;
+   id: text;
+   isVisible: bool;
+   order: nat;
+   price: nat;
+   shortDescription: text;
+   title: text;
+ };
+type CompetenceCard = 
+ record {
+   description: text;
+   isVisible: bool;
+   title: text;
+ };
+type CommissionSettings = 
+ record {
+   defaultRate: float64;
+   overrideRates: vec record {
+                        text;
+                        float64;
+                      };
+ };
+type ClientProjectStatus = 
+ variant {
+   Completed;
+   InProgress;
+   OnHold;
+   Pending;
+   UnderReview;
+ };
+type ClientProject = 
+ record {
+   clientEmail: text;
+   clientName: text;
+   clientPrincipal: principal;
+   completedDate: opt Timestamp;
+   createdAt: Timestamp;
+   deliverables: vec Deliverable;
+   expectedEndDate: opt Timestamp;
+   id: text;
+   nextSteps: vec NextStep;
+   projectDescription: text;
+   projectTitle: text;
+   startDate: Timestamp;
+   status: ClientProjectStatus;
+   tier: ConsultingTier;
+   updatedAt: Timestamp;
+   updates: vec ProjectUpdate;
+ };
+type BuyerLeadStatus = 
+ variant {
+   Contacted;
+   Converted;
+   New;
+   Rejected;
+ };
+type BuyerLead = 
+ record {
+   assignedTo: opt principal;
+   budgetRange: text;
+   businessName: text;
+   businessType: text;
+   createdAt: Timestamp;
+   email: text;
+   formSource: FormSource;
+   id: nat;
+   name: text;
+   notes: opt text;
+   phone: text;
+   projectDescription: text;
+   status: BuyerLeadStatus;
+   timeline: text;
+   updatedAt: Timestamp;
+ };
+type Bundle = 
+ record {
+   bundlePrice: nat;
+   currency: text;
+   description: text;
+   id: text;
+   includedServiceIds: vec text;
+   isVisible: bool;
+   order: nat;
+   title: text;
+ };
+type BlockEntry = 
+ record {
+   blockedAt: int;
+   key: text;
+   reason: text;
+ };
+type AuditLog = 
+ record {
+   action: AuditAction;
+   details: text;
+   ip: opt IpAddress;
+   logId: nat;
+   resource: text;
+   timestamp: Timestamp;
+   userId: principal;
+   userRole: UserRole;
+ };
+type AuditAction = 
+ variant {
+   AccessDenied;
+   Approve;
+   Create;
+   Delete;
+   Login;
+   Logout;
+   Reject;
+   Update;
+ };
+type AffiliateStatus = 
+ variant {
+   approved;
+   disabled;
+   pending;
+   rejected;
+ };
+type AffiliateStats = 
+ record {
+   pendingPayout: float64;
+   totalClicks: nat;
+   totalCommissionEarned: float64;
+   totalConversions: nat;
+   totalLeads: nat;
+ };
+type AffiliateProfile = 
+ record {
+   email: text;
+   inviteCode: text;
+   joinedAt: Timestamp;
+   name: text;
+   "principal": principal;
+   referralCode: text;
+   rejectionReason: opt text;
+   status: AffiliateStatus;
+ };
+type ActivityLog = 
+ record {
+   action: text;
+   actorId: principal;
+   actorRole: UserRole;
+   id: text;
+   ipAddress: opt IpAddress;
+   target: text;
+   timestamp: Timestamp;
+ };
+type AboutSection = 
+ record {
+   bio: text;
+   title: text;
+ };
+service : {
+  _internalCreateLeadFromContact: (name: text, email: text, message: 
+   text, affiliateRef: opt text, nowNanos: int) -> () oneway;
+  adminAddDeliverable: (projectId: text, deliverable: Deliverable) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminAddFinanceEntry: (entryType: EntryType, amount: nat, description:
+   text, date: text) -> ();
+  adminAddGalleryImage: (storageId: text, caption: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminAddGalleryVideo: (input: GalleryVideoInput) ->
+   (variant {
+      err: text;
+      ok: GalleryVideo;
+    });
+  adminAddNextStep: (projectId: text, description: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminAddOrder: (customerName: text, customerEmail: text, product: text,
+   amount: float64, notes: text, customerId: opt principal, assignedStaff:
+   opt principal) -> (variant {
+                        err: text;
+                        ok: text;
+                      });
+  adminAddPayout: ("record": PayoutRecord) -> (variant {
+                                                 err: text;
+                                                 ok: text;
+                                               });
+  adminAddSystemApp: (name: text, description: text, url: text) ->
+   (variant {
+      err: text;
+      ok: SystemApp;
+    });
+  adminAddUpdate: (projectId: text, title: text, content: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminAdjustCommission: (affiliateId: text, amount: float64, reason:
+   text) -> (variant {
+               err: text;
+               ok: text;
+             });
+  adminApproveAffiliate: (affiliatePrincipal: principal) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminApprovePaymentOrder: (orderId: nat, approve: bool, notes: opt text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminBlockKey: (key: text, reason: text) -> ();
+  adminCreateLiveSession: (title: text, description: text, date: int,
+   joinLink: text) -> ();
+  adminCreateProject: (req: CreateProjectRequest) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminCreateTrainingModule: (title: text, description: text, videoStorageId:
+   opt text, textContent: text, order: nat) -> ();
+  adminDeleteFinanceEntry: (id: nat) -> ();
+  adminDeleteGalleryImage: (id: nat) -> ();
+  adminDeleteGalleryVideo: (id: nat) -> ();
+  adminDeleteLiveSession: (id: nat) -> ();
+  adminDeleteSystemApp: (id: text) -> (variant {
+                                         err: text;
+                                         ok: text;
+                                       });
+  adminDeleteTrainingModule: (id: nat) -> ();
+  adminDisableAffiliate: (affiliatePrincipal: principal) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminEditGalleryVideo: (id: nat, input: GalleryVideoInput) ->
+   (variant {
+      err: text;
+      ok: GalleryVideo;
+    });
+  adminEditSystemApp: (id: text, name: text, description: text, url: 
+   text) -> (variant {
+               err: text;
+               ok: text;
+             });
+  adminGetAffiliateStats: (affiliateId: text) -> (AffiliateStats);
+  adminGetAffiliates: () -> (vec AffiliateProfile);
+  adminGetAllContactPlatforms: () -> (vec ContactPlatform);
+  adminGetAllLegalContent: () -> (vec LegalContent);
+  adminGetAllProjects: () -> (variant {
+                                err: text;
+                                ok: vec ClientProject;
+                              });
+  adminGetAllTestimonials: () -> (vec Testimonial);
+  adminGetBlockedKeys: () -> (vec BlockEntry);
+  adminGetBrandTagline: () -> (text);
+  adminGetCompetenceCards: () -> (vec CompetenceCard);
+  adminGetCompetenceSectionVisible: () -> (bool);
+  adminGetContactLinks: () -> (ContactLinks);
+  adminGetContactMessages: () -> (vec ContactMessage);
+  adminGetCryptoPaymentConfig: () ->
+   (variant {
+      err: text;
+      ok: CryptoPaymentConfig;
+    });
+  adminGetDeploymentLog: () -> (vec DeploymentEntry);
+  adminGetFinanceEntries: () -> (vec FinanceEntry);
+  adminGetFinanceSummary: () -> (FinanceSummary);
+  adminGetGalleryImages: () -> (vec GalleryImage);
+  adminGetGalleryVideos: () -> (vec GalleryVideo);
+  adminGetHeroImageIds: () -> (HeroImageIds);
+  adminGetLead: (id: text) -> (opt Lead);
+  adminGetLeadStats: () -> (LeadStats);
+  adminGetLeads: (filter: LeadFilter) -> (vec Lead);
+  adminGetOrder: (id: text) -> (opt Order);
+  adminGetOrders: (filter: SalesFilter) -> (vec Order);
+  adminGetPaymentConfig: () -> (PaymentConfig);
+  adminGetPayoutHistory: (affiliateId: text) -> (vec PayoutRecord);
+  adminGetPricingData: () -> (PricingData);
+  adminGetProjectById: (id: text) -> (variant {
+                                        err: text;
+                                        ok: ClientProject;
+                                      });
+  adminGetSalesStats: () -> (SalesStats);
+  adminGetSecurityPolicy: () -> (SecurityPolicy);
+  adminGetSystemsApps: () -> (vec SystemApp);
+  adminGetTrainingModules: () -> (vec TrainingModule);
+  adminListAuditLogs: (limit: opt nat) -> (vec AuditLog);
+  adminListBuyerLeads: (statusFilter: opt BuyerLeadStatus, sourceFilter:
+   opt FormSource) -> (vec BuyerLead);
+  adminListPaymentOrders: () -> (vec PaymentOrder);
+  adminRegisterAffiliate: (affiliatePrincipal: principal, inviteCode: 
+   text, name: text, email: text) -> ();
+  adminRejectAffiliate: (affiliatePrincipal: principal, reason: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminReorderPlatform: (id: text, newOrder: nat) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetAbout: (section: AboutSection) -> ();
+  adminSetBrandTagline: (tagline: text) -> ();
+  adminSetBundles: (bundles: vec Bundle) -> (variant {
+                                               err: text;
+                                               ok: text;
+                                             });
+  adminSetCommission: (settings: CommissionSettings) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetCompetenceCards: (cards: vec CompetenceCard) -> ();
+  adminSetCompetencePricing: (pricing: vec CompetencePricing) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetCompetenceSectionVisible: (visible: bool) -> ();
+  adminSetConsultancyServices: (services: vec ConsultancyService) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetContactDetails: (payload: ContactDetails) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetContactLinks: (links: ContactLinks) -> ();
+  adminSetContactPlatforms: (platforms: vec ContactPlatform) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetCryptoPaymentConfig: (config: CryptoPaymentConfig) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetGiveaways: (giveaways: vec GiveawayItem) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetHelpBlocks: (blocks: vec HelpBlock) -> ();
+  adminSetHeroImageIds: (ids: HeroImageIds) -> ();
+  adminSetHeroSlides: (slides: vec HeroSlide) -> ();
+  adminSetLandingPageOffers: (offers: vec LandingPageOffer) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetLegalContent: (id: text, title: text, content: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminSetPaymentConfig: (payload: PaymentConfig) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetSecurityPolicy: (newPolicy: SecurityPolicy) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminSetSignatureEdge: (edge: SignatureEdge) -> ();
+  adminSetTestimonials: (items: vec Testimonial) -> ();
+  adminSetWebhookSecretHash: (provider: text, secretHash: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminToggleGalleryVideoFeatured: (id: nat) ->
+   (variant {
+      err: text;
+      ok: GalleryVideo;
+    });
+  adminToggleGalleryVideoVisibility: (id: nat) ->
+   (variant {
+      err: text;
+      ok: GalleryVideo;
+    });
+  adminTogglePlatformVisibility: (id: text) ->
+   (variant {
+      err: text;
+      ok: bool;
+    });
+  adminTogglePricingItemVisibility: (itemType: text, id: text) ->
+   (variant {
+      err: text;
+      ok: bool;
+    });
+  adminToggleSystemApp: (id: text) -> (variant {
+                                         err: text;
+                                         ok: bool;
+                                       });
+  adminUnblockKey: (key: text) -> ();
+  adminUpdateBuyerLeadStatus: (leadId: nat, newStatus: BuyerLeadStatus,
+   notes: opt text) -> (variant {
+                          err: text;
+                          ok: text;
+                        });
+  adminUpdateLead: (id: text, name: text, email: text, phone: opt text,
+   message: text, source: LeadSource, status: LeadStatus, notes: text,
+   assignedStaff: opt principal, affiliateRef: opt text, createdAt: int) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminUpdateLiveSession: (id: nat, title: text, description: text, date:
+   int, joinLink: text) -> ();
+  adminUpdateNextStep: (projectId: text, stepId: text, isCompleted: bool) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminUpdateOrder: (id: text, customerName: text, customerEmail: text,
+   product: text, amount: float64, status: OrderStatus, notes: text,
+   customerId: opt principal, assignedStaff: opt principal, createdAt:
+   int) -> (variant {
+              err: text;
+              ok: text;
+            });
+  adminUpdatePayoutRecord: (id: text, status: PayoutStatus, adjustedBy:
+   opt principal, adjustmentNote: text) -> (variant {
+                                              err: text;
+                                              ok: text;
+                                            });
+  adminUpdateProject: (projectId: text, req: UpdateProjectRequest) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  adminUpdateSystemConfig: (cfg: SystemConfig) -> (variant {
+                                                     err: text;
+                                                     ok;
+                                                   });
+  adminUpdateTrainingModule: (id: nat, title: text, description: text,
+   videoStorageId: opt text, textContent: text, order: nat) -> ();
+  affiliateGetInviteLink: () -> (text);
+  affiliateGetPayoutHistory: () -> (vec PayoutRecord);
+  affiliateGetProfile: () -> (AffiliateProfile);
+  affiliateGetStats: () -> (AffiliateStats);
+  affiliateRequestPayout: (method: text) -> (variant {
+                                               err: text;
+                                               ok: text;
+                                             });
+  assignUserRole: (target: principal, role: UserRole, email: text,
+   permissions: vec Permission) -> (RoleResult);
+  claimOwnership: (email: text) -> (RoleResult);
+  clientGetMyProject: () -> (variant {
+                               err: text;
+                               ok: ClientProject;
+                             });
+  confirmOwnership: () -> (record {
+                             isOwnerOrAdmin: bool;
+                             role: opt UserRole;
+                           });
+  createPaymentOrder: (payerName: text, payerEmail: text, payerPhone:
+   opt text, method: variant {
+                       flutterwave;
+                       localBank;
+                       paystack;
+                     }) -> (variant {
+                              err: text;
+                              ok: PaymentOrder;
+                            });
+  flutterwaveWebhook: (body: text, signature: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  getAbout: () -> (AboutSection) query;
+  getActivityLog: (limit: nat) -> (vec ActivityLog);
+  getBrandTagline: () -> (text) query;
+  getCompetenceCards: () -> (vec CompetenceCard) query;
+  getCompetenceCardsVisible: () -> (vec CompetenceCard) query;
+  getCompetenceSectionVisible: () -> (bool) query;
+  getContactDetails: () -> (ContactDetails) query;
+  getContactLinks: () -> (ContactLinks) query;
+  getContactPlatforms: () -> (vec ContactPlatform) query;
+  getGalleryImages: () -> (vec GalleryImage) query;
+  getGalleryVideos: () -> (vec GalleryVideo) query;
+  getHelpBlocks: () -> (vec HelpBlock) query;
+  getHeroImageIds: () -> (HeroImageIds) query;
+  getHeroSlides: () -> (vec HeroSlide) query;
+  getLegalContent: (id: text) -> (opt LegalContent) query;
+  getLiveSessions: () -> (vec LiveSession) query;
+  getMyRole: () -> (opt UserRole);
+  getOwnerDebugInfo: () ->
+   (record {
+      callerEmail: opt text;
+      callerIsOwner: bool;
+      callerRole: text;
+      ownerEmail: text;
+    }) query;
+  getPaymentConfig: () -> (PaymentConfigPublic) query;
+  getPricingData: () -> (PricingData) query;
+  getPublicCryptoPaymentInfo: () -> (opt CryptoPaymentPublic) query;
+  getSignatureEdge: () -> (SignatureEdge) query;
+  getSystemConfig: () -> (SystemConfig) query;
+  getSystemsApps: () -> (vec SystemApp) query;
+  getTestimonials: () -> (vec Testimonial) query;
+  getTrainingModules: () -> (vec TrainingModule);
+  getUserRole: (target: principal) -> (opt UserRole);
+  getVersionInfo: () -> (VersionInfo) query;
+  getVisibleTestimonials: () -> (vec Testimonial) query;
+  listUsersByRole: (role: UserRole) -> (vec StaffUser);
+  paystackWebhook: (body: text, signature: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  revokeUserRole: (target: principal) -> (RoleResult);
+  submitBuyerLead: (name: text, email: text, phone: text, businessName: 
+   text, businessType: text, projectDescription: text, timeline: text,
+   budgetRange: text, formSource: FormSource, honeypot: text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  submitContactMessage: (senderName: text, messageText: text, honeypot:
+   text) -> (SubmitResult);
+  trackReferralClick: (affiliateId: text, source: text) -> ();
+}

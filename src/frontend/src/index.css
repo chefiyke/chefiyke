@@ -1,0 +1,430 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Bricolage Grotesque", sans-serif;
+    --font-body: "General Sans", sans-serif;
+    --font-mono: "Geist Mono", monospace;
+    --radius: 0.625rem;
+
+    --background: 0.99 0 0;
+    --foreground: 0.15 0 0;
+    --card: 1.0 0 0;
+    --card-foreground: 0.15 0 0;
+    --popover: 1.0 0 0;
+    --popover-foreground: 0.15 0 0;
+
+    --primary: 0.35 0 0;
+    --primary-foreground: 0.98 0 0;
+
+    --secondary: 0.95 0 0;
+    --secondary-foreground: 0.25 0 0;
+    --muted: 0.95 0 0;
+    --muted-foreground: 0.5 0 0;
+
+    --accent: 0.35 0 0;
+    --accent-foreground: 0.98 0 0;
+
+    --destructive: 0.55 0.22 25;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.9 0 0;
+    --input: 0.9 0 0;
+    --ring: 0.35 0 0;
+
+    --chart-1: 0.65 0.22 40;
+    --chart-2: 0.6 0.12 185;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.15 0 0;
+    --sidebar-primary: 0.35 0 0;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.95 0 0;
+    --sidebar-accent-foreground: 0.25 0 0;
+    --sidebar-border: 0.9 0 0;
+    --sidebar-ring: 0.35 0 0;
+  }
+
+  .dark {
+    /* Background: #0a0a0a ≈ oklch(0.07 0 0) — true near-black */
+    --background: 0.07 0 0;
+    /* Off-white foreground with slight warmth */
+    --foreground: 0.97 0.005 80;
+    /* Cards: slightly lifted above background */
+    --card: 0.11 0 0;
+    --card-foreground: 0.97 0.005 80;
+    --popover: 0.13 0 0;
+    --popover-foreground: 0.97 0.005 80;
+
+    /* Primary = deep muted gold (#B8960C ≈ oklch 0.58 0.14 69) */
+    --primary: 0.58 0.14 69;
+    --primary-foreground: 0.06 0 0;
+
+    --secondary: 0.15 0 0;
+    --secondary-foreground: 0.85 0.005 80;
+    --muted: 0.2 0 0;
+    --muted-foreground: 0.6 0 0;
+
+    /* Accent = same deep muted gold */
+    --accent: 0.58 0.14 69;
+    --accent-foreground: 0.06 0 0;
+
+    --destructive: 0.6 0.21 25;
+    --destructive-foreground: 0.97 0 0;
+
+    --border: 0.18 0 0;
+    --input: 0.18 0 0;
+    --ring: 0.58 0.14 69;
+
+    --chart-1: 0.58 0.14 69;
+    --chart-2: 0.65 0.18 162;
+    --chart-3: 0.72 0.16 70;
+    --chart-4: 0.6 0.22 304;
+    --chart-5: 0.62 0.2 16;
+
+    --sidebar: 0.11 0 0;
+    --sidebar-foreground: 0.97 0.005 80;
+    --sidebar-primary: 0.58 0.14 69;
+    --sidebar-primary-foreground: 0.06 0 0;
+    --sidebar-accent: 0.15 0 0;
+    --sidebar-accent-foreground: 0.85 0.005 80;
+    --sidebar-border: 0.18 0 0;
+    --sidebar-ring: 0.58 0.14 69;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    /* Offset anchor scroll targets so content clears the 64px fixed navbar */
+    scroll-padding-top: 64px;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background: oklch(var(--primary) / 0.3);
+    color: oklch(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(var(--ring));
+    outline-offset: 2px;
+    border-radius: var(--radius);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/assets/fonts/GeneralSans.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 400 500;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(
+      135deg,
+      oklch(var(--accent)) 0%,
+      oklch(var(--accent) / 0.7) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-elevated {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .shadow-gold {
+    box-shadow: 0 0 16px oklch(var(--accent) / 0.08), 0 2px 8px
+      rgba(0, 0, 0, 0.25);
+  }
+
+  .shadow-premium {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .border-accent-subtle {
+    border: 1px solid oklch(var(--accent) / 0.2);
+  }
+
+  .border-accent-glow {
+    border: 1px solid oklch(var(--accent) / 0.3);
+    box-shadow: inset 0 0 8px oklch(var(--accent) / 0.08);
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      oklch(var(--accent) / 0.3) 40%,
+      oklch(var(--accent) / 0.3) 60%,
+      transparent 100%
+    );
+  }
+
+  .section-pad {
+    @apply py-16 md:py-24 lg:py-28 px-4 sm:px-6 lg:px-8;
+  }
+
+  .heading-xl {
+    @apply font-display font-bold text-4xl md:text-6xl lg:text-7xl leading-tight tracking-tight;
+  }
+
+  .heading-lg {
+    @apply font-display font-bold text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight;
+  }
+
+  .heading-md {
+    @apply font-display font-semibold text-xl md:text-2xl leading-snug;
+  }
+
+  .body-lg {
+    @apply font-body text-lg md:text-xl leading-relaxed;
+  }
+
+  .body-base {
+    @apply font-body text-base leading-relaxed;
+  }
+
+  .button-gold {
+    @apply bg-accent text-accent-foreground font-medium px-6 py-3 rounded-lg focus-visible:ring-2 focus-visible:ring-accent transition-smooth;
+  }
+  .button-gold:hover {
+    opacity: 0.92;
+    box-shadow: 0 0 14px rgba(184, 150, 12, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .button-gold-secondary {
+    @apply bg-transparent border-accent-subtle text-accent font-medium px-6 py-3 rounded-lg hover:bg-accent/5 focus-visible:ring-2 focus-visible:ring-accent;
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms
+      cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms ease, background-color
+      200ms ease;
+  }
+  .button-gold-secondary:hover {
+    border-color: oklch(var(--accent) / 0.6);
+    transform: scale(1.02);
+    box-shadow: 0 0 10px rgba(184, 150, 12, 0.2), 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Card hover — smooth lift only, no scale jitter */
+  .card-hover {
+    transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms
+      cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms
+      cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(184, 150, 12, 0.18), 0 8px 24px
+      rgba(0, 0, 0, 0.35);
+  }
+
+  /* Viewport fade-in — use .is-visible to trigger via IntersectionObserver */
+  .fade-in-viewport {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s
+      cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fade-in-viewport.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Image grading ─────────────────────────────────────────────── */
+  /**
+   * Apply to all hero/personal images for consistent warm cinematic look:
+   * brightness(0.8) darkens slightly, contrast(1.1) adds depth.
+   * sepia removed — reduces color processing overhead.
+   */
+  .hero-image-filter {
+    filter: brightness(0.8) contrast(1.1);
+    object-fit: cover;
+    object-position: center top;
+    width: 100%;
+    height: 100%;
+  }
+
+  /**
+   * Watermark overlay — covers the bottom ~20% of an image with a
+   * dark gradient to hide any studio/photographer watermarks.
+   * Parent must be position:relative; this element is position:absolute.
+   */
+  .watermark-overlay::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 28%;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.6) 40%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Cinematic dark overlay for hero slides (50–65% coverage) */
+  .hero-cinematic-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(0, 0, 0, 0.62) 0%,
+      rgba(0, 0, 0, 0.45) 55%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+    z-index: 1;
+  }
+
+  /* Warm-tinted cinematic overlay for slide 1 identity shot */
+  .hero-cinematic-warm {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      rgba(5, 3, 0, 0.65) 0%,
+      rgba(20, 12, 0, 0.42) 50%,
+      rgba(0, 0, 0, 0.68) 100%
+    );
+    z-index: 1;
+  }
+
+  /* Gold text glow for hero headings */
+  .text-gold-glow {
+    text-shadow: 0 0 28px oklch(var(--accent) / 0.25);
+  }
+
+  /* Premium card background */
+  .card-premium {
+    @apply bg-card border border-accent/10;
+  }
+
+  /* Admin sidebar — elevated, intentional styling */
+  .admin-sidebar {
+    @apply bg-sidebar border-r border-sidebar-border;
+  }
+
+  /* Admin header — clean structure */
+  .admin-header {
+    @apply bg-sidebar border-b border-sidebar-border sticky top-0 z-50;
+  }
+
+  /* Admin content area — breathing space */
+  .admin-content {
+    @apply bg-background;
+  }
+
+  /* Pricing grid — responsive, card-based */
+  .pricing-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  /* Contact platforms grid — horizontal alignment */
+  .contact-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4;
+  }
+
+  /* Testimonial card — refined styling */
+  .testimonial-card {
+    @apply bg-card border border-border rounded-lg p-6 space-y-4 shadow-card;
+  }
+
+  /* Section divider — gold accent */
+  .section-divider {
+    @apply h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-30;
+  }
+
+  /* Slide image wrapper — full cover with correct stacking */
+  .slide-image-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  /* Accent line separator */
+  .accent-line {
+    display: inline-block;
+    width: 3rem;
+    height: 2px;
+    background: oklch(var(--accent));
+    border-radius: 2px;
+  }
+
+  /* Section layout containment — reduces paint during scroll */
+  .section-contain {
+    contain: layout;
+  }
+}
+
+/* ── Mobile scroll stability ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Prevent jitter from complex scroll animations on low-power devices */
+  [data-motion] {
+    animation: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+}

@@ -1,0 +1,683 @@
+// Version: 1.0.0
+type AboutSection__938509008 = {bio : Text; title : Text};
+type ActivityLog__250415597 =
+  {
+    action : Text;
+    actorId : Principal;
+    actorRole : UserRole__655227432;
+    id : Text;
+    ipAddress : ?IpAddress__205988438;
+    target : Text;
+    timestamp : Timestamp__301639476
+  };
+type AffiliateProfile__673349728 =
+  {
+    email : Text;
+    inviteCode : Text;
+    joinedAt : Timestamp__301639476;
+    name : Text;
+    principal : Principal;
+    referralCode : Text;
+    rejectionReason : ?Text;
+    status : AffiliateStatus__52124105
+  };
+type AffiliateStatus__52124105 = {#approved; #disabled; #pending; #rejected};
+type AuditAction__595905663 =
+  {
+    #AccessDenied;
+    #Approve;
+    #Create;
+    #Delete;
+    #Login;
+    #Logout;
+    #Reject;
+    #Update
+  };
+type AuditLog__476823628 =
+  {
+    action : AuditAction__595905663;
+    details : Text;
+    ip : ?IpAddress__205988438;
+    logId : Nat;
+    resource : Text;
+    timestamp : Timestamp__301639476;
+    userId : Principal;
+    userRole : UserRole__655227432
+  };
+type BlockEntry__734324921 = {blockedAt : Int; key : Text; reason : Text};
+type Bundle__970005293 =
+  {
+    bundlePrice : Nat;
+    currency : Text;
+    description : Text;
+    id : Text;
+    includedServiceIds : [Text];
+    isVisible : Bool;
+    order : Nat;
+    title : Text
+  };
+type BuyerLeadStatus__79902434 = {#Contacted; #Converted; #New; #Rejected};
+type BuyerLead__1015148309 =
+  {
+    assignedTo : ?Principal;
+    budgetRange : Text;
+    businessName : Text;
+    businessType : Text;
+    createdAt : Timestamp__301639476;
+    email : Text;
+    formSource : FormSource__775725249;
+    id : Nat;
+    name : Text;
+    notes : ?Text;
+    phone : Text;
+    projectDescription : Text;
+    status : BuyerLeadStatus__79902434;
+    timeline : Text;
+    updatedAt : Timestamp__301639476
+  };
+type ClickEvent__411256772 =
+  {
+    affiliateId : Text;
+    deviceType : Text;
+    referrerSource : Text;
+    timestamp : Timestamp__301639476
+  };
+type ClientProjectStatus__308574629 =
+  {#Completed; #InProgress; #OnHold; #Pending; #UnderReview};
+type ClientProject__511249867 =
+  {
+    clientEmail : Text;
+    clientName : Text;
+    clientPrincipal : Principal;
+    completedDate : ?Timestamp__301639476;
+    createdAt : Timestamp__301639476;
+    deliverables : [Deliverable__331200119];
+    expectedEndDate : ?Timestamp__301639476;
+    id : Text;
+    nextSteps : [NextStep__798156077];
+    projectDescription : Text;
+    projectTitle : Text;
+    startDate : Timestamp__301639476;
+    status : ClientProjectStatus__308574629;
+    tier : ConsultingTier__1031181623;
+    updatedAt : Timestamp__301639476;
+    updates : [ProjectUpdate__475253915]
+  };
+type CommissionSettings__829906955 =
+  {defaultRate : Float; overrideRates : [(Text, Float)]};
+type CompetenceCard__1063682909 =
+  {description : Text; isVisible : Bool; title : Text};
+type CompetencePricing__116912342 =
+  {
+    currency : Text;
+    id : Text;
+    isVisible : Bool;
+    order : Nat;
+    price : Nat;
+    shortDescription : Text;
+    title : Text
+  };
+type ConsultancyService__160460621 =
+  {
+    currency : Text;
+    description : Text;
+    id : Text;
+    isVisible : Bool;
+    order : Nat;
+    price : Nat;
+    title : Text
+  };
+type ConsultingTier__1031181623 =
+  {#Advisory; #BakerySetup; #BakerySetupAndRecipes; #BusinessDevelopment};
+type ContactDetails__783623112 =
+  {
+    email : ?Text;
+    facebook : ?Text;
+    instagram : ?Text;
+    linkedin : ?Text;
+    otherLinks : [ContactLink__127911329];
+    phone : ?Text;
+    snapchat : ?Text;
+    tiktok : ?Text;
+    updatedAt : Timestamp__301639476;
+    whatsapp : ?Text;
+    x : ?Text
+  };
+type ContactLink__127911329 = {name : Text; url : Text};
+type ContactLinks__806269014 =
+  {
+    email : Text;
+    facebook : Text;
+    instagram : Text;
+    primaryCtaText : Text;
+    whatsapp : Text
+  };
+type ContactManagerData__1008252356 =
+  {
+    platforms : [ContactPlatform__791860543];
+    updatedAt : Timestamp__301639476
+  };
+type ContactMessage__274377449 =
+  {id : Nat; messageText : Text; senderName : Text; timestamp : Int};
+type ContactPlatform__791860543 =
+  {
+    displayLabel : ?Text;
+    id : Text;
+    isVisible : Bool;
+    order : Nat;
+    platformKey : Text;
+    platformName : Text;
+    url : Text
+  };
+type ConversionEvent__761338703 =
+  {
+    affiliateId : Text;
+    amount : Float;
+    commission : Float;
+    orderId : Text;
+    timestamp : Timestamp__301639476
+  };
+type CryptoPaymentConfig__310190403 =
+  {
+    eligibleOfferIds : [Text];
+    enabled : Bool;
+    network : Text;
+    paymentInstructions : Text;
+    usdcEnabled : Bool;
+    usdcWalletAddress : Text;
+    usdtWalletAddress : Text
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Deliverable__331200119 =
+  {
+    description : Text;
+    fileType : ?Text;
+    id : Text;
+    isAvailable : Bool;
+    title : Text;
+    uploadedAt : Timestamp__301639476;
+    url : ?Text
+  };
+type DeploymentEntry__596744974 =
+  {deployedAt : Int; note : Text; version : Nat};
+type EntryType__688467357 = {#expense; #income};
+type FinanceEntry__137007963 =
+  {
+    amount : Nat;
+    createdAt : Timestamp__301639476;
+    date : Text;
+    description : Text;
+    entryType : EntryType__688467357;
+    id : Nat
+  };
+type FlutterwaveConfig__818316120 =
+  {publicKey : Text; secretKey : Text; webhookSecret : Text};
+type FormSource__775725249 = {#Footer; #Hero; #MidPage};
+type GalleryImage__104908223 =
+  {
+    caption : Text;
+    id : Nat;
+    storageId : Text;
+    uploadedAt : Timestamp__301639476
+  };
+type GalleryVideo__856837092 =
+  {
+    description : Text;
+    id : Nat;
+    isFeatured : Bool;
+    isVisible : Bool;
+    title : Text;
+    uploadedAt : Timestamp__301639476;
+    url : Text
+  };
+type GiveawayItem__843996798 =
+  {
+    currency : Text;
+    description : Text;
+    discountedPrice : ?Nat;
+    id : Text;
+    isActive : Bool;
+    isFree : Bool;
+    isVisible : Bool;
+    order : Nat;
+    title : Text
+  };
+type HelpBlock__881055048 = {description : Text; title : Text};
+type HeroImageIds__496914768 =
+  {
+    aboutImageId : ?Text;
+    presenceImageId : ?Text;
+    slide1ImageId : ?Text;
+    slide2ImageId : ?Text;
+    slide3ImageId : ?Text
+  };
+type HeroSlide__72308354 =
+  {
+    body : Text;
+    button1 : SlideButton__669104518;
+    button2 : SlideButton__669104518;
+    headline : Text;
+    subheadline : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type IpAddress__205988438 = Text;
+type LandingPageOffer__656013201 =
+  {
+    currency : Text;
+    description : Text;
+    id : Text;
+    isVisible : Bool;
+    price : Nat;
+    tag : ?Text;
+    tier : Text;
+    title : Text
+  };
+type LeadSource__829062046 =
+  {#affiliate_signup; #contact_form; #other; #training_enrollment};
+type LeadStatus__653971529 =
+  {#contacted; #converted; #new_; #qualified; #rejected};
+type Lead__531162083 =
+  {
+    affiliateRef : ?Text;
+    assignedStaff : ?Principal;
+    createdAt : Timestamp__301639476;
+    email : Text;
+    id : Text;
+    message : Text;
+    name : Text;
+    notes : Text;
+    phone : ?Text;
+    source : LeadSource__829062046;
+    status : LeadStatus__653971529;
+    updatedAt : Timestamp__301639476
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type LegalContent__92930233 =
+  {content : Text; id : Text; lastUpdated : Int; title : Text};
+type LiveSession__766119924 =
+  {
+    createdAt : Timestamp__301639476;
+    date : Timestamp__301639476;
+    description : Text;
+    id : Nat;
+    joinLink : Text;
+    title : Text
+  };
+type LocalBankConfig__104457107 =
+  {accountName : Text; accountNumber : Text; bankName : Text};
+type LoginAttempt__649491476 =
+  {
+    var attempts : Nat;
+    key : Text;
+    var lastAttempt : Timestamp__301639476;
+    var lockoutUntil : ?Timestamp__301639476
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NextStep__798156077 =
+  {description : Text; id : Text; isCompleted : Bool; order : Nat};
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OrderStatus__90407641 = {#completed; #failed; #pending; #refunded};
+type Order__758082369 =
+  {
+    amount : Float;
+    assignedStaff : ?Principal;
+    createdAt : Timestamp__301639476;
+    customerEmail : Text;
+    customerId : ?Principal;
+    customerName : Text;
+    id : Text;
+    notes : Text;
+    product : Text;
+    status : OrderStatus__90407641;
+    updatedAt : Timestamp__301639476
+  };
+type PaymentConfig__681042936 =
+  {
+    defaultCurrency : Text;
+    enabledMethods : [{#flutterwave; #localBank; #paystack}];
+    flutterwave : ?FlutterwaveConfig__818316120;
+    localBank : ?LocalBankConfig__104457107;
+    paystack : ?PaystackConfig__434545731;
+    servicePriceNgn : Nat;
+    updatedAt : Timestamp__301639476
+  };
+type PaymentOrderStatus__749648846 =
+  {#Completed; #Failed; #Pending; #Rejected};
+type PaymentOrder__159642560 =
+  {
+    amount : Nat;
+    approvedBy : ?Principal;
+    createdAt : Timestamp__301639476;
+    currency : Text;
+    method : {#flutterwave; #localBank; #paystack};
+    notes : ?Text;
+    orderId : Nat;
+    payerEmail : Text;
+    payerName : Text;
+    payerPhone : ?Text;
+    status : PaymentOrderStatus__749648846;
+    updatedAt : Timestamp__301639476;
+    webhookRef : ?Text
+  };
+type PayoutRecord__378045060 =
+  {
+    adjustedBy : ?Principal;
+    adjustmentNote : Text;
+    affiliateId : Text;
+    amount : Float;
+    id : Text;
+    method : Text;
+    processedAt : ?Timestamp__301639476;
+    requestedAt : Timestamp__301639476;
+    status : PayoutStatus__846775114
+  };
+type PayoutStatus__846775114 = {#completed; #pending};
+type PaystackConfig__434545731 =
+  {publicKey : Text; secretKey : Text; webhookSecret : Text};
+type Permission__297569975 =
+  {
+    #CanEditContactDetails;
+    #CanEditContent;
+    #CanManageAffiliates;
+    #CanManageBuyerLeads;
+    #CanManageFinance;
+    #CanManageLeads;
+    #CanManageMedia;
+    #CanManagePayments;
+    #CanManageRoles;
+    #CanManageSales;
+    #CanManageSecurity;
+    #CanManageStaff;
+    #CanManageTraining;
+    #CanViewAuditLog;
+    #CanViewDashboard;
+    #CanViewReports
+  };
+type PricingData__359793030 =
+  {
+    bundles : [Bundle__970005293];
+    competencePricing : [CompetencePricing__116912342];
+    consultancyServices : [ConsultancyService__160460621];
+    giveaways : [GiveawayItem__843996798];
+    landingPageOffers : [LandingPageOffer__656013201]
+  };
+type ProjectUpdate__475253915 =
+  {
+    content : Text;
+    createdAt : Timestamp__301639476;
+    id : Text;
+    isPublished : Bool;
+    title : Text
+  };
+type RateLimitEntry__456832020 = {var timestamps : [Int]};
+type SecurityPolicy__316339518 =
+  {
+    lockoutDurationMins : Nat;
+    maxLoginAttempts : Nat;
+    rateLimitPerMin : Nat;
+    rateLimitPublicPerMin : Nat;
+    sessionTimeoutMins : Nat
+  };
+type SignatureEdge__884759728 =
+  {pillar1 : Text; pillar2 : Text; pillar3 : Text; quote : Text};
+type SlideButton__669104518 = {href : Text; text : Text};
+type StaffUser__391737131 =
+  {
+    email : Text;
+    id : Principal;
+    invitedAt : Timestamp__301639476;
+    lastLoginAt : ?Timestamp__301639476;
+    permissions : [Permission__297569975];
+    role : UserRole__655227432;
+    status : {#active; #inactive; #pending}
+  };
+type SystemApp__873735217 =
+  {
+    createdAt : Int;
+    description : Text;
+    id : Text;
+    isVisible : Bool;
+    name : Text;
+    order : Nat;
+    url : Text
+  };
+type SystemConfig__440850317 =
+  {
+    brandTagline : Text;
+    competenceSectionVisible : Bool;
+    ctaExploreSystems : Text;
+    ctaGetLandingPage : Text;
+    ctaViewCompetence : Text;
+    ctaWorkWithMe : Text;
+    environment : Text;
+    footerText : Text;
+    heroHeadline : Text;
+    heroSubtext : Text;
+    maintenanceMode : Bool;
+    siteDescription : Text;
+    siteTitle : Text
+  };
+type Testimonial__126880530 =
+  {author : Text; isVisible : Bool; role : Text; text : Text};
+type Timestamp__301639476 = Int;
+type TrainingModule__544617532 =
+  {
+    createdAt : Timestamp__301639476;
+    description : Text;
+    id : Nat;
+    order : Nat;
+    textContent : Text;
+    title : Text;
+    videoStorageId : ?Text
+  };
+type UserRole__655227432 =
+  {#Admin; #Affiliate; #Customer; #PlatformOwner; #Staff};
+actor {
+  stable MEDIA_RATE_LIMIT : Nat;
+  stable aboutSection : {var value : AboutSection__938509008};
+  stable activityLog :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ActivityLog__250415597]];
+      var elementIndex : Nat__490723111
+    };
+  stable affiliateClicks :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ClickEvent__411256772]];
+      var elementIndex : Nat__490723111
+    };
+  stable affiliateConversions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ConversionEvent__761338703]];
+      var elementIndex : Nat__490723111
+    };
+  stable affiliateLeadRefs :
+    {var root : Node__46230540<Text, Nat>; var size : Nat__490723111};
+  stable affiliatePayouts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PayoutRecord__378045060]];
+      var elementIndex : Nat__490723111
+    };
+  stable affiliateRateLimits :
+    {
+      var root : Node__46230540<Text, {var timestamps : [Int]}>;
+      var size : Nat__490723111
+    };
+  stable affiliates :
+    {
+      var root : Node__46230540<Principal, AffiliateProfile__673349728>;
+      var size : Nat__490723111
+    };
+  stable auditLogs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?AuditLog__476823628]];
+      var elementIndex : Nat__490723111
+    };
+  stable blockedKeys :
+    {
+      var root : Node__46230540<Text, BlockEntry__734324921>;
+      var size : Nat__490723111
+    };
+  stable brandTagline : {var value : Text};
+  stable buildVersion : {var value : Nat};
+  stable buyerLeads :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?BuyerLead__1015148309]];
+      var elementIndex : Nat__490723111
+    };
+  stable clientProjects :
+    {
+      var root : Node__46230540<Text, ClientProject__511249867>;
+      var size : Nat__490723111
+    };
+  stable commissionSettings : {var value : CommissionSettings__829906955};
+  stable competenceCards :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?CompetenceCard__1063682909]];
+      var elementIndex : Nat__490723111
+    };
+  stable competenceSectionVisible : {var value : Bool};
+  stable contactDetails : {var value : ContactDetails__783623112};
+  stable contactLinks : {var value : ContactLinks__806269014};
+  stable contactManager : {var value : ContactManagerData__1008252356};
+  stable contactMessages :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactMessage__274377449]];
+      var elementIndex : Nat__490723111
+    };
+  stable cryptoPaymentConfig : {var value : ?CryptoPaymentConfig__310190403};
+  stable deploymentLog :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?DeploymentEntry__596744974]];
+      var elementIndex : Nat__490723111
+    };
+  stable financeEntries :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?FinanceEntry__137007963]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryImages :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?GalleryImage__104908223]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryVideos :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?GalleryVideo__856837092]];
+      var elementIndex : Nat__490723111
+    };
+  stable helpBlocks :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?HelpBlock__881055048]];
+      var elementIndex : Nat__490723111
+    };
+  stable heroImageIds : {var value : HeroImageIds__496914768};
+  stable heroSlides :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?HeroSlide__72308354]];
+      var elementIndex : Nat__490723111
+    };
+  stable lastDeployedAt : {var value : Int};
+  stable leads :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Lead__531162083]];
+      var elementIndex : Nat__490723111
+    };
+  stable legalContent :
+    {
+      var root : Node__46230540<Text, LegalContent__92930233>;
+      var size : Nat__490723111
+    };
+  stable liveSessions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?LiveSession__766119924]];
+      var elementIndex : Nat__490723111
+    };
+  stable loginAttempts :
+    {
+      var root : Node__46230540<Text, LoginAttempt__649491476>;
+      var size : Nat__490723111
+    };
+  stable nextAffiliateId : {var value : Nat};
+  stable nextAuditLogId : {var value : Nat};
+  stable nextBuyerLeadId : {var value : Nat};
+  stable nextFinanceId : {var value : Nat};
+  stable nextImageId : {var value : Nat};
+  stable nextLeadId : {var value : Nat};
+  stable nextLogId : {var value : Nat};
+  stable nextMessageId : {var value : Nat};
+  stable nextModuleId : {var value : Nat};
+  stable nextOrderId : {var value : Nat};
+  stable nextPaymentOrderId : {var value : Nat};
+  stable nextPayoutId : {var value : Nat};
+  stable nextSessionId : {var value : Nat};
+  stable nextVideoId : {var value : Nat};
+  stable orders :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Order__758082369]];
+      var elementIndex : Nat__490723111
+    };
+  stable ownerPrincipal : {var value : ?Principal};
+  stable paymentConfig : {var value : PaymentConfig__681042936};
+  stable paymentOrders :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?PaymentOrder__159642560]];
+      var elementIndex : Nat__490723111
+    };
+  stable pricingState : {var value : PricingData__359793030};
+  stable rateLimitViolations :
+    {var root : Node__46230540<Text, Nat>; var size : Nat__490723111};
+  stable rateLimits :
+    {
+      var root : Node__46230540<Text, RateLimitEntry__456832020>;
+      var size : Nat__490723111
+    };
+  stable roleUsers :
+    {
+      var root : Node__46230540<Principal, StaffUser__391737131>;
+      var size : Nat__490723111
+    };
+  stable securityPolicy : {var value : SecurityPolicy__316339518};
+  stable signatureEdge : {var value : SignatureEdge__884759728};
+  stable systemConfig : {var value : SystemConfig__440850317};
+  stable systemsApps :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?SystemApp__873735217]];
+      var elementIndex : Nat__490723111
+    };
+  stable testimonials :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Testimonial__126880530]];
+      var elementIndex : Nat__490723111
+    };
+  stable trainingModules :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?TrainingModule__544617532]];
+      var elementIndex : Nat__490723111
+    };
+  stable webhookSecretHash : {var value : Text}
+};
